@@ -1,0 +1,15 @@
+{
+  "challenge_module": "DesignsIIThinChallenge",
+  "solution_module": "DesignsIIThinSolution",
+  "theorem_names": [
+    "DesignsII.TParams.lemma_e_E",
+    "DesignsII.TParams.thinning_probability"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "enable_nanoda": true
+}

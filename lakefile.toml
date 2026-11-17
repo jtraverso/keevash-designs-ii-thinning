@@ -1,0 +1,30 @@
+name = "keevash_designs2_thin"
+version = "0.1.0"
+defaultTargets = ["DesignsIIThin", "DesignsIIThinChallenge", "DesignsIIThinSolution"]
+requiresModuleSystem = true
+
+[leanOptions]
+relaxedAutoImplicit = false
+weak.linter.mathlibStandardSet = true
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.35.0-rc3"
+
+[[require]]
+name = "keevash_designs2_ext"
+git = "https://github.com/jtraverso/keevash-designs-ii-extension-lemma"
+rev = "033861405884cecb052530b636e2f76e51aa21f5"
+
+[[lean_lib]]
+name = "DesignsIIThin"
+globs = ["DesignsIIThin.+"]
+
+[[lean_lib]]
+name = "DesignsIIThinChallenge"
+roots = ["DesignsIIThinChallenge"]
+
+[[lean_lib]]
+name = "DesignsIIThinSolution"
+roots = ["DesignsIIThinSolution"]

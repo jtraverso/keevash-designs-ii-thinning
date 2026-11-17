@@ -1,0 +1,128 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "Keevash, The existence of designs II: Lemma e|E (two-sided) and the thinning probability of the nibble"
+  description: >-
+    A Lean 4 / Mathlib formalization of two probabilistic estimates in the random algebraic
+    template of P. Keevash, "The existence of designs II" (arXiv:1802.05900), as explicit
+    finite-N inequalities. (1) DesignsII.TParams.lemma_e_E (Lemma 3.6 e|E with Remark 3.7(i),
+    two-sided): in the template space conditioned on the values of the colours at a set U of
+    fixed vertices, a copy φ meeting U in at most r−1 vertices, whose revealed values are
+    F-linearly independent, passes the tests of colour j with probability between
+    (1−δ)ρ₀(k) and ρ₀(k)/(1−δ), where δ = (q²+q|U|)/N < 1 and
+    ρ₀(k) = N^(r−q) z^(−C(q,r)) ((q−r)!/q!)^C(q,r) |𝒜|^(−1) k/N_act. (2)
+    DesignsII.TParams.thinning_probability (the computation of P(φ ∈ Φ') in the proof of
+    Lemma 3.9 nibble): for families C_i (i < m) of copies of pairwise distinct colours, with
+    covering masses μ_i = ∑_{x∈C_i} P(x passes) ≤ 1, thinning parameters q_i ∈ [0,1] with
+    μ_i q_i = t for all i, and independent thinning coins whose event for the covering pattern
+    w has probability ∏_i (1 − w_i q_i), the probability that the realised covering pattern's
+    coin succeeds is (1−t)^m up to 2^m((∑_i μ_i)² + (m+1)·errMax), where errMax is an explicit
+    maximum, over subsets of the families, of second-order terms (pairs of copies within a
+    family and copies of different families sharing an edge). Both statements are finite-N
+    inequalities valid for all permitted parameters; no asymptotic claim is part of the
+    statements. Mathlib does not contain these results.
+  authors:
+    - "Juan Pablo Traverso Gianini"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Juan Pablo Traverso Gianini"
+
+classification:
+  arxiv: ["math.CO", "math.PR"]
+  msc2020: ["05B05", "60C05"]
+
+repository:
+  role: "substantive-development"
+
+sources:
+  - title: "The existence of designs II"
+    authors:
+      - "Peter Keevash"
+    id: "arXiv:1802.05900"
+    type: "paper"
+    location: "arXiv:1802.05900v1: Section 3.3 (Lemma 3.6 e|E, Remark 3.7(i)) and the proof of Lemma 3.9 (nibble), the computation of P(φ ∈ Φ' | E^{e'} ∩ C)"
+    relationship: "formalizes"
+    note: >-
+      The template is modelled as in the registered entry PALOMAR-2026-11-17-000009 (independent
+      uniform permutations). The paper states Lemma e|E with a (1 ± c) error and derives the
+      thinning probability "by repeated application of Remark 3.7(i)"; here both are proved
+      with explicit errors: the joint covering of several edges with distinct colours is
+      estimated by Bonferroni inequalities (copies of distinct colours sharing an edge cannot
+      both pass; edge-disjoint groups are independent), and patterns with uncovered edges by
+      Bonferroni inequalities for complements. The formalization is by a different author; the
+      article's author was not involved.
+    license: "all rights reserved"
+    author_endorsement: "not-contacted"
+
+related_formalizations:
+  - id: "PALOMAR-2026-11-17-000009 v1 (jtraverso/keevash-designs-ii-extension-lemma @ 0338614)"
+    relationship: "builds-on"
+    note: "Pinned dependency: the template space, the conditioned permutations (liftPi), Lemma e|E lower bound (probG_copyOK_cond_ge) and the compatibility counts are imported from this entry, not copied."
+
+status:
+  scope: >-
+    Lemma 3.6 (e|E) of Keevash's "The existence of designs II" in two-sided form with explicit
+    error, and the thinning probability P(φ ∈ Φ') of the proof of Lemma 3.9, as finite-N
+    inequalities. Lemma 3.9 itself (the nibble), Theorem 3.1 and the headline results are not
+    part of this entry.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: []
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["Claude Opus 5.5"]
+      framework: "Claude Code (Anthropic)"
+      tool_setup: >-
+        Statement design against the paper, all proofs (DesignsIIThin/*.lean) and the Palomar
+        packaging, checked with lake build against the pinned dependencies, #print axioms and a
+        comparison of the elaborated Challenge and Solution statements and definitions (pp.all)
+        (Lean v4.35.0-rc3, Mathlib c55e6e786f49471c72fbddbec5415808896aec1e).
+      cost:
+        wall_time: "about one day"
+        spend_usd: "subscription-based"
+        hardware: "local machine"
+      prompting_notes: "Natural-language instructions in Spanish, directed by the author."
+  spend_usd: "subscription-based"
+  notes: >-
+    The result was chosen by the human author; the Lean proofs are AI-generated and mechanically
+    verified: no sorry, axioms limited to propext, Classical.choice and Quot.sound, identical
+    elaborated statements and definitions in the Challenge and the Solution.
+
+fidelity:
+  divergences: >-
+    (a) Probability space: independent uniform permutations (as in PALOMAR-2026-11-17-000009);
+    the activation probability is k/N_act. (b) Lemma e|E is stated in the space conditioned on
+    the values of the colours at the fixed vertices U (the paper conditions on the local event
+    E), for copies whose revealed values are F-linearly independent (non-degenerate colours);
+    the error δ = (q²+q|U|)/N replaces the paper's c. (c) The thinning statement is proved for
+    arbitrary families C_i of copies of pairwise distinct colours in an arbitrarily conditioned
+    space (the paper's families are the copies through the edges of φ, conditioned on E^{e'}
+    and on the colours T_e); the thinning coins are abstract independent coordinates whose
+    events have the exact probabilities ∏(1 − w_i q_i) (hypothesis hθ), and μ_i q_i = t is
+    assumed exactly (the paper has q_e = 1/G^{t_e}_{ψ_e} and μ_e ≈ zρG^{t_e}_{ψ_e}). The
+    hypothesis hθ can be met when the q_i are rational (one coin coordinate per pattern w, a
+    uniform permutation of [D] read at a fixed position with threshold D·∏(1 − w_i q_i), D a
+    common denominator), which covers the paper's q_e = 1/G; for irrational q_i it cannot be
+    met and the statement is then vacuous. (d) No
+    asymptotic statement is made: the right-hand sides are explicit; they are small when the
+    covering masses and errMax are small, which in the paper's regime is the case.
+
+review:
+  status: "agent-reviewed"
+  reviewers:
+    - "Claude Opus 5.5 (AI agent in Claude Code, acting for the author)"
+  notes: >-
+    Agent review by Claude Opus 5.5, separate from the mechanical verification. No independent
+    human review has been performed.
+
+alignment:
+  namespace: "DesignsII"
+  statements:
+    - {source: "Lemma 3.6 (e|E) with Remark 3.7(i), two-sided", lean: "DesignsII.TParams.lemma_e_E", module: "DesignsIIThinChallenge", status: "proved"}
+    - {source: "Proof of Lemma 3.9 (nibble): P(φ ∈ Φ')", lean: "DesignsII.TParams.thinning_probability", module: "DesignsIIThinChallenge", status: "proved"}
+
+acknowledgements: >-
+  Mathlib and the Lean community.
